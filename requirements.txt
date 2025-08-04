@@ -1,0 +1,19 @@
+fastapi
+uvicorn
+pydantic
+playwright
+selenium
+trafilatura
+requests
+PyPDF2
+langchain
+langchain-community
+langchain-huggingface
+torch
+faiss-cpu
+python-dotenv
+google-generativeai
+exa-py
+spacy
+keybert
+#pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
