@@ -630,7 +630,7 @@ Please create a detailed markdown summary organized into the following sections.
 - Crisis management responses (if mentioned in document)
 
 ## Client Company Preferences and Beliefs
-- Strategic or cultural preferences of {client_company} (e.g., innovation focus, risk tolerance)
+- Strategic or cultural preferences (e.g., innovation focus, risk tolerance)
 - Core beliefs or values influencing decision-making
 - Preferred vendor or partner characteristics
 - Philosophical or operational principles (if mentioned in document)
