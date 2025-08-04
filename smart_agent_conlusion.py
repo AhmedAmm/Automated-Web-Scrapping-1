@@ -574,8 +574,8 @@ Please create a detailed markdown summary organized into the following sections.
 - Competitor pricing and strategies (if discussed in document)
 - Market share information (if available in document)
 
-## Competitor Analysis (if mentioned in document)
-- Specific competitor names and profiles
+## Competitor Analysis
+- Specific competitor names and profiles (if mentioned in document)
 - Competitor strengths and weaknesses
 - Competitor product offerings and features
 - Competitor customer base and market approach
@@ -598,13 +598,13 @@ Please create a detailed markdown summary organized into the following sections.
 - Support and customer service feedback
 - Customer retention rates (if mentioned in document)
 
-## Business Operations & Workflow
+## Work Methods and Deliverables
 - Service delivery process
-- Operational workflow
-- Business processes described
-- Service methodologies
+- Operational workflows and methodologies
+- Specific deliverables provided to clients
 - Quality control measures
 - Technology stack and tools used (if mentioned in document)
+- Project management or execution approaches (if mentioned in document)
 
 ## Market Analysis
 - Market trends mentioned (if present in document)
@@ -614,8 +614,8 @@ Please create a detailed markdown summary organized into the following sections.
 - Regulatory environment
 - Market size and growth projections (if available in document)
 
-## Financial Information (if mentioned in document)
-- Revenue figures and financial performance
+## Financial Information
+- Revenue figures and financial performance (if mentioned in document)
 - Funding information and investors
 - Pricing models and cost structures
 - Financial growth metrics
@@ -629,16 +629,24 @@ Please create a detailed markdown summary organized into the following sections.
 - Reputation risks
 - Crisis management responses (if mentioned in document)
 
-## Client Preferences & Requirements
-- What clients value most
+## Client Company Preferences and Beliefs
+- Strategic or cultural preferences of {client_company} (e.g., innovation focus, risk tolerance)
+- Core beliefs or values influencing decision-making
+- Preferred vendor or partner characteristics
+- Philosophical or operational principles (if mentioned in document)
+- Alignment with industry trends or standards
+- Specific priorities or biases (if discussed in document)
+
+## Client Requirements
+- Practical client needs and expectations
 - Preferred service characteristics
 - Decision-making criteria
 - Budget considerations
-- Service expectations
+- Service delivery expectations
 - Buying process and decision timelines (if mentioned in document)
 
-## Partnership & Ecosystem (if mentioned in document)
-- Strategic partnerships and alliances
+## Partnership & Ecosystem
+- Strategic partnerships and alliances (if mentioned in document)
 - Technology integrations
 - Channel partners and distribution networks
 - Vendor relationships

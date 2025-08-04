@@ -252,7 +252,7 @@ def _parse_queries(response):
 def generate_all_queries(user_company,user_product_name,user_product_description,client_company):    
     prompt = f"""
     You are a knowledgeable research assistant.  
-    Your job is to generate exactly 20 high-quality web search queries, covering all relevant dimensions of due-diligence and intelligence gathering for a potential client engagement.  
+    Your job is to generate exactly 26 high-quality web search queries, covering all relevant dimensions of due-diligence and intelligence gathering for a potential client engagement.  
 
     Inputs (replace the placeholders with real values before invoking):
     - user_company: {user_company}  
@@ -261,7 +261,7 @@ def generate_all_queries(user_company,user_product_name,user_product_description
     - client_company: {client_company} 
 
     Requirements:
-    1. Cover each of these 10 domains with exactly 2 queries each (total = 20):
+    1. Cover each of these 13 domains with exactly 2 queries each (total = 26):
     A. Vendor/Company Intelligence  
     B. Product/Solution Deep Dive  
     C. Competitive Intelligence  
@@ -272,16 +272,19 @@ def generate_all_queries(user_company,user_product_name,user_product_description
     H. Sales Process & Procurement Intelligence  
     I. Technology & Architecture Intelligence  
     J. Market Research & Analysis  
+    K. {client_company} preferences and beliefs
+    L. {user_product_name} failures, scandals, and negative intelligence
+    M. {client_company} work methods and deliverables
 
     2. Each query must reference at least one placeholder (e.g. “{user_company} financial performance,” “{user_product_name} pricing model”) and be phrased as a realistic search string.
 
     3. Output format: a numbered list starting at 1, one query per line. For example:
-    . {user_company} founding story and history  
-    . recent Glassdoor ratings for {user_company} employees  
-    . {user_product_name}pricing tiers comparison  
+    1. {user_company} founding story and history  
+    2. recent Glassdoor ratings for {user_company} employees  
+    3. {user_product_name} pricing tiers comparison  
     …  
-    . market share trends in {client_company}’s sector  
-    No extra text—just the 20 numbered queries.  
+    26. market share trends in {client_company}’s sector  
+    No extra text—just the 26 numbered queries.  
     """
 
     try:
