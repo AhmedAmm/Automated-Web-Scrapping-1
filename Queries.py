@@ -249,43 +249,82 @@ def _parse_queries(response):
     return queries
 
 
-def generate_all_queries(user_company,user_product_name,user_product_description,client_company):    
+def generate_all_queries(user_company,user_product_name,user_product_description,client_company,client_industry,company_size):    
     prompt = f"""
-    You are a knowledgeable research assistant.  
-    Your job is to generate exactly 26 high-quality web search queries, covering all relevant dimensions of due-diligence and intelligence gathering for a potential client engagement.  
+    You are a knowledgeable and detail-oriented research assistant.
 
-    Inputs (replace the placeholders with real values before invoking):
-    - user_company: {user_company}  
-    - user_product_name: {user_product_name}  
-    - user_product_description: {user_product_description} 
-    - client_company: {client_company} 
+    Your task is to generate exactly 26 **realistic and high-quality web search queries** for collecting context-rich information used in a retrieval-augmented generation (RAG) system. These queries will be used to gather comprehensive intelligence for an upcoming client engagement.
 
-    Requirements:
-    1. Cover each of these 13 domains with exactly 2 queries each (total = 26):
-    A. Vendor/Company Intelligence  
-    B. Product/Solution Deep Dive  
-    C. Competitive Intelligence  
-    D. Industry & Market Context  
-    E. Client Segment Intelligence  
-    F. Implementation & Support Intelligence  
-    G. ROI & Value Metrics  
-    H. Sales Process & Procurement Intelligence  
-    I. Technology & Architecture Intelligence  
-    J. Market Research & Analysis  
-    K. {client_company} preferences and beliefs
-    L. {user_product_name} failures, scandals, and negative intelligence
-    M. {client_company} work methods and deliverables
+    ### Inputs:
+    - user_company: {user_company}
+    - user_product_name: {user_product_name}
+    - user_product_description: {user_product_description}
+    - client_company: {client_company}
+    - client_industry: {client_industry}
+    - company_size: {company_size}
 
-    2. Each query must reference at least one placeholder (e.g. “{user_company} financial performance,” “{user_product_name} pricing model”) and be phrased as a realistic search string.
+    ### Output Requirements:
+    1. Generate **exactly 2 realistic search queries for each of the 13 categories** below (total = 26 queries).
+    2. Each query **must be phrased naturally as if typed into a search engine** (e.g., “{user_product_name} case studies in manufacturing sector”).
+    3. Use at least one placeholder in every query (e.g., {user_company}, {user_product_name}, {client_company}, etc.).
+    4. Ensure the queries align with the intelligence needs outlined below.
 
-    3. Output format: a numbered list starting at 1, one query per line. For example:
-    1. {user_company} founding story and history  
-    2. recent Glassdoor ratings for {user_company} employees  
-    3. {user_product_name} pricing tiers comparison  
-    …  
-    26. market share trends in {client_company}’s sector  
-    No extra text—just the 26 numbered queries.  
+    ---
+
+    ### 13 Categories of Intelligence (2 queries each):
+
+    **A. Vendor Analysis (→ `vendor_analysis`)**  
+    Focus: {user_company}'s background, reputation, market position, customer base, financial health.
+
+    **B. Product Deep Dive (→ `product_deep_dive`)**  
+    Focus: {user_product_name}'s features, pricing, updates, technical specs, customer support, use cases.
+
+    **C. Competitive Landscape (→ `competitive_landscape`)**  
+    Focus: Competitor comparison for {user_product_name}, market positioning, differentiators.
+
+    **D. Industry Context (→ `industry_context`)**  
+    Focus: Trends, regulations, pain points, and procurement practices in the {client_industry} sector.
+
+    **E. Client Segment Analysis (→ `client_segment_analysis`)**  
+    Focus: Needs, challenges, and buying behavior of companies of size {company_size} in {client_industry}.
+
+    **F. Implementation Realities (→ `implementation_realities`)**  
+    Focus: Real-world adoption of {user_product_name}, common blockers, timeline, success factors.
+
+    **G. ROI & Value Justification (→ `roi_and_value`)**  
+    Focus: Measurable outcomes, ROI benchmarks, case studies, value frameworks for {user_product_name}.
+
+    **H. Sales & Procurement (→ `sales_process`)**  
+    Focus: Enterprise buying journeys, typical procurement cycles, RFP processes in {client_industry}.
+
+    **I. Tech & Integration Ecosystem (→ `integration_ecosystem`)**  
+    Focus: {user_product_name}'s integration capabilities, ecosystem compatibility, API strengths.
+
+    **J. Market Research & Analyst Views**  
+    Focus: Analyst reports, market sizing, forecast trends, Gartner/Forrester insights for {user_product_name} or {client_industry}.
+
+    **K. {client_company} Culture & Beliefs**  
+    Focus: Public statements, leadership interviews, hiring patterns, core values of {client_company}.
+
+    **L. Negative Intel on {user_product_name}**  
+    Focus: Known issues, failed implementations, customer complaints, lawsuits, or scandals.
+
+    **M. {client_company} Work Style & Deliverables**  
+    Focus: Project execution style, deliverable formats, vendor expectations, recent partnerships.
+
+    ---
+
+    ### Output Format:
+    Return only a numbered list from 1 to 26 — one line per search query.
+
+    **Example format:**
+    1. {user_company} financial stability and investor confidence  
+    2. common customer complaints about {user_product_name} in tech forums  
+    ...  
+    26. how {client_company} defines success in technology partnerships
+
     """
+
 
     try:
         response = llm.ask_gemini(prompt)

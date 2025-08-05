@@ -43,6 +43,10 @@ class ScrapeAllRequest(BaseModel):
     user_product:   str
     description:    str
     client_company: str
+    client_industry:str
+    company_size:   str
+    
+
 
 # Helper to run CPU-bound tasks in a thread
 async def run_in_thread(func, *args, **kwargs):
