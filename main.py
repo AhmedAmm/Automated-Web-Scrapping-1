@@ -134,7 +134,9 @@ async def scrape_all(request: ScrapeAllRequest):
         user_company=request.user_company,
         product=request.user_product,
         description=request.description,
-        client_company=request.client_company
+        client_company=request.client_company,
+        client_industry=request.client_industry,
+        company_size=request.company_size
     )
     return {"message": "Scrape-all pipeline completed"}
 
