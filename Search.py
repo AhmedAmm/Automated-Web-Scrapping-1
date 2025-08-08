@@ -39,7 +39,7 @@ def get_urls(queries : list, num_results=5, type="auto", include_domains=None, e
 
 
 
-def search_and_add_urls(queries: List[str], urls: List[str], searxng_instance: str = "https://searx.be") -> List[str]:
+def search_and_add_urls(queries: List[str], urls: List[str], searxng_instance: str = "https://search.disroot.org") -> List[str]:
     # Start with the original URLs
     all_urls = set(urls)  # Use set to avoid duplicates
     

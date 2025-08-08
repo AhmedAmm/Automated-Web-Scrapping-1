@@ -513,7 +513,7 @@ Report generation failed: {str(e)}
 
 ## Content
 {processed_data.get('content', 'No content available')}
-"""
+"""     
 
 
 

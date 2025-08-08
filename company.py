@@ -4,18 +4,20 @@ from scrap1 import scrape_urls,cleanup_all
 from rag1 import RAGSystem
 from iterative_rag import systematic_rag_query
 from Llm import llm
+import asyncio
+
 
 async def company_search(company):
     try:
         # First phase: Competitor research
-        print(f"Starting competitor research for {company}...")
-        queries = generate_competitor_queries(company)
-        urls = get_urls(queries)
+        # print(f"Starting competitor research for {company}...")
+        # queries = generate_competitor_queries(company)
+        # urls = get_urls(queries)
         
-        # Use optimized scraper with concurrent processing
-        await scrape_urls(urls, max_concurrent=10)  # Added max_concurrent parameter
+        # # Use optimized scraper with concurrent processing
+        # await scrape_urls(urls, max_concurrent=20)  # Added max_concurrent parameter
         
-        # Build RAG system for competitor analysis
+        # # Build RAG system for competitor analysis
         rag= RAGSystem("data", "faiss_index")
         rag.build_from_scratch()
         rag.load_existing_system()
@@ -67,85 +69,85 @@ async def company_search(company):
         company_list = _parse_queries(respond["answer"])
         print(f"Found competitors: {company_list}")
         
-        # Second phase: Client research
-        print("Starting client research...")
-        queries = generate_client_research_queries(company_list)
-        urls = get_urls(queries)
+        # # Second phase: Client research
+        # print("Starting client research...")
+        # queries = generate_client_research_queries(company_list)
+        # urls = get_urls(queries)
         
-        # Use optimized scraper again with concurrent processing
-        await scrape_urls(urls, max_concurrent=10)  # Added max_concurrent parameter
+        # # Use optimized scraper again with concurrent processing
+        # await scrape_urls(urls, max_concurrent=10)  # Added max_concurrent parameter
         
 
-        rag.cleanup()
-        # Create separate RAG system for client analysis
-        rag = RAGSystem("data", "faiss_index1")
-        rag.build_from_scratch()
-        rag.load_existing_system()
+        # rag.cleanup()
+        # # Create separate RAG system for client analysis
+        # rag = RAGSystem("data", "faiss_index1")
+        # rag.build_from_scratch()
+        # rag.load_existing_system()
 
         
-        CLIENT_FINDER_PROMPT = """
-         You are a business intelligence analyst specializing in client identification and market analysis. Your task is to identify and list all current clients, past clients, and potential clients of the given company based on the retrieved documents and market intelligence data.
+        # CLIENT_FINDER_PROMPT = """
+        #  You are a business intelligence analyst specializing in client identification and market analysis. Your task is to identify and list all current clients, past clients, and potential clients of the given company based on the retrieved documents and market intelligence data.
 
-         COMPANY TO ANALYZE: {company}
+        #  COMPANY TO ANALYZE: {company}
 
-        INSTRUCTIONS:
-        1. Search through all retrieved documents for any mentions of clients, customers, partnerships, case studies, or business relationships
-        2. Identify three categories:
-        - CURRENT CLIENTS (active customers, ongoing partnerships)
-        - PAST CLIENTS (former customers, completed projects, historical relationships)
-        - POTENTIAL CLIENTS (prospects, competitor clients, target market companies)
-        3. Look for client mentions in sections like:
-        - Case studies and success stories
-        - Client testimonials and reviews
-        - Partnership announcements
-        - Project references
-        - Contract wins and deals
-        - Industry client lists
-        - Competitor client bases (as potential targets)
-        - Market analysis and target segments
+        # INSTRUCTIONS:
+        # 1. Search through all retrieved documents for any mentions of clients, customers, partnerships, case studies, or business relationships
+        # 2. Identify three categories:
+        # - CURRENT CLIENTS (active customers, ongoing partnerships)
+        # - PAST CLIENTS (former customers, completed projects, historical relationships)
+        # - POTENTIAL CLIENTS (prospects, competitor clients, target market companies)
+        # 3. Look for client mentions in sections like:
+        # - Case studies and success stories
+        # - Client testimonials and reviews
+        # - Partnership announcements
+        # - Project references
+        # - Contract wins and deals
+        # - Industry client lists
+        # - Competitor client bases (as potential targets)
+        # - Market analysis and target segments
 
-        OUTPUT FORMAT:
-        Provide ONLY a bullet-point list of client names organized by category. Use this exact format:
+        # OUTPUT FORMAT:
+        # Provide ONLY a bullet-point list of client names organized by category. Use this exact format:
 
-        CURRENT CLIENTS:
-        - [Client Name 1]
-        - [Client Name 2]
-        - [Client Name 3]
-        ...
+        # CURRENT CLIENTS:
+        # - [Client Name 1]
+        # - [Client Name 2]
+        # - [Client Name 3]
+        # ...
 
-        PAST CLIENTS:
-        - [Former Client Name 1]
-        - [Former Client Name 2]
-        - [Former Client Name 3]
-        ...
+        # PAST CLIENTS:
+        # - [Former Client Name 1]
+        # - [Former Client Name 2]
+        # - [Former Client Name 3]
+        # ...
 
-        POTENTIAL CLIENTS:
-        - [Prospect/Competitor Client Name 1]
-        - [Prospect/Competitor Client Name 2]
-        - [Prospect/Competitor Client Name 3]
-        ...
+        # POTENTIAL CLIENTS:
+        # - [Prospect/Competitor Client Name 1]
+        # - [Prospect/Competitor Client Name 2]
+        # - [Prospect/Competitor Client Name 3]
+        # ...
 
-        IMPORTANT RULES:
-        - If no clients are found in any category, respond with: "No clients identified in available documents" for that category
-        - Include both enterprise clients and smaller businesses if mentioned
-        - Remove any duplicates within each category
-        - Maintain consistent formatting with bullet points (•)
-        - For potential clients, include competitor clients that could be prospects for the target company
+        # IMPORTANT RULES:
+        # - If no clients are found in any category, respond with: "No clients identified in available documents" for that category
+        # - Include both enterprise clients and smaller businesses if mentioned
+        # - Remove any duplicates within each category
+        # - Maintain consistent formatting with bullet points (•)
+        # - For potential clients, include competitor clients that could be prospects for the target company
 
-        FOCUS ON ACCURACY:
-        Only include companies that are clearly identified in the retrieved documents. Do not make assumptions or add companies not explicitly mentioned in the source material.
-        """
+        # FOCUS ON ACCURACY:
+        # Only include companies that are clearly identified in the retrieved documents. Do not make assumptions or add companies not explicitly mentioned in the source material.
+        # """
         
-        # print("Analyzing clients...")
-        # ch=company
-        # for tot in company_list:
-        #     ch+=tot+", "
-        # client_analysis = rag1.ask(CLIENT_FINDER_PROMPT, f"query: what are the clients of {ch}?")
-        # print(client_analysis["answer"])
+        # # print("Analyzing clients...")
+        # # ch=company
+        # # for tot in company_list:
+        # #     ch+=tot+", "
+        # # client_analysis = rag1.ask(CLIENT_FINDER_PROMPT, f"query: what are the clients of {ch}?")
+        # # print(client_analysis["answer"])
 
-        result=systematic_rag_query("what are the target client ,potential client and the client of {company}?",rag,llm,CLIENT_FINDER_PROMPT)
-        print(result["answer"])
-        rag.cleanup()
+        # result=systematic_rag_query("what are the target client ,potential client and the client of {company}?",rag,llm,CLIENT_FINDER_PROMPT)
+        # print(result["answer"])
+        # rag.cleanup()
         
     except Exception as e:
         print(f"Error in company_search: {str(e)}")
@@ -158,4 +160,9 @@ async def company_search(company):
         print("Company search completed.")
 
 
+async def main():
+    # Replace "talan" with whatever company you want to search
+    await company_search("talan")
 
+if __name__ == "__main__":
+    asyncio.run(main())

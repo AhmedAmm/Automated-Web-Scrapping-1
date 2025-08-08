@@ -318,10 +318,10 @@ def generate_all_queries(user_company,user_product_name,user_product_description
     Return only a numbered list from 1 to 26 — one line per search query.
 
     **Example format:**
-    1. {user_company} financial stability and investor confidence  
-    2. common customer complaints about {user_product_name} in tech forums  
+    . {user_company} financial stability and investor confidence  
+    . common customer complaints about {user_product_name} in tech forums  
     ...  
-    26. how {client_company} defines success in technology partnerships
+    . how {client_company} defines success in technology partnerships
 
     """
 

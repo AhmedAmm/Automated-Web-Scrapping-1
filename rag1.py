@@ -111,7 +111,7 @@ class RAGSystem:
         print(f"📊 Created {len(chunks)} chunks")
         return chunks
 
-    def create_embeddings(self, model_name: str = "intfloat/e5-large-v2"):
+    def create_embeddings(self, model_name: str = "intfloat/e5-base-v2"):
         """
         Create embedding model with GPU support
         
@@ -124,12 +124,13 @@ class RAGSystem:
         model_kwargs = {
             'device': self.device,
             'trust_remote_code': True
+            # 'torch_dtype': torch.float16 if self.device == "cuda" else torch.float32,
         }
         
         # Additional GPU optimizations (reduced batch size for e5-large-v2 as it's larger)
         encode_kwargs = {
             'normalize_embeddings': True,
-            'batch_size': 16 if self.device == "cuda" else 8  # Smaller batch for larger model
+            'batch_size': 16 if self.device == "cuda" else 8,  # Smaller batch for larger model
         }
         
         self.embedding_model = HuggingFaceEmbeddings(
@@ -288,7 +289,7 @@ Answer: """
             # Extract source information
             for doc in relevant_docs:
                 source_info = {
-                    "content": doc.page_content[:50] ,
+                    "content": doc.page_content ,
                     "source": doc.metadata.get("source", "Unknown"),
                     "file_path": doc.metadata.get("file_path", "Unknown")
                 }
@@ -331,7 +332,7 @@ Answer: """
             # Extract source information
             for doc in relevant_docs:
                 source_info = {
-                    "content": doc.page_content[:50] ,
+                    "content": doc.page_content ,
                     "source": doc.metadata.get("source", "Unknown"),
                     "file_path": doc.metadata.get("file_path", "Unknown")
                 }
