@@ -13,6 +13,7 @@ from rag1 import RAGSystem
 from iterative_rag import systematic_rag_query
 from Llm import llm
 from all import company_search as full_company_search
+from multi_layer_rag import structured_prompt_to_rag_answer
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -45,6 +46,9 @@ class ScrapeAllRequest(BaseModel):
     client_company: str
     client_industry:str
     company_size:   str
+
+class MultiLayerRAGRequest(BaseModel):
+    prompt: str
     
 
 
@@ -139,6 +143,21 @@ async def scrape_all(request: ScrapeAllRequest):
         company_size=request.company_size
     )
     return {"message": "Scrape-all pipeline completed"}
+
+@app.post("/multi-layer-rag")
+async def multi_layer_rag(request: MultiLayerRAGRequest):
+    """Process a structured prompt to get a RAG answer."""
+    if not hasattr(app.state, 'rag') or not hasattr(app.state, 'llm'):
+        return {"error": "RAG system not initialized"}
+    rag_system = app.state.rag
+    llm_instance = app.state.llm
+    result = await run_in_thread(
+        structured_prompt_to_rag_answer,
+        request.prompt,
+        rag_system,
+        llm_instance
+    )
+    return {"answer": result}   
 
 
 if __name__ == "__main__":
